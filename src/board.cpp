@@ -80,8 +80,8 @@ void Board::placeMines() {
             cell.setMine();
             ++m_mineCount;
         }
-        std::cout << "[DEBUG]NumMines \n" << m_numMines;
-        std::cout << "MineCount " << m_mineCount;        
+        // std::cout << "[DEBUG]NumMines \n" << m_numMines;
+        // std::cout << "MineCount " << m_mineCount;        
     }
 }
 
