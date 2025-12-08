@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <sstream> // for input handling
 #include <cstdlib>
 
 #include "constants.h"
@@ -16,15 +18,52 @@ int main(int argc, char* argv[]){
     int row {};
     int col {};
     int difficulty {};
+    int tries{}; // number of tries the user have
 
     try{
     // gets user input
-        int row = std::stoi(argv[1]);
-        int col = std::stoi(argv[2]);
+        int gameRow = std::stoi(argv[1]);
+        int gameCol = std::stoi(argv[2]);
         int difficulty = std::stoi(argv[3]);
         
         // Game logic
-        Board board(row, col, ,difficulty)
+        Board board(gameRow, gameCol, difficulty);
+        board.initialize();
+        while(board.checkWinCondition()){
+            std::cout << "How to play: \n";
+            std::cout << "Reveal a line: r i j || i for row, j for column\n";
+            std::cout << "Flag/Deflag a line: f i j || i for row, j for column\n";
+            board.printBoard();
+            std::cout << "\n";
+            std::cout << "Your input: ";
+            std::string input{};
+            std::getline(std::cin >> std::ws, input);
+            ++tries;
+            
+            // using string stream to parse the input
+            // deals automatically white trailing and inside whitespaces
+            std::stringstream ss(input);
+            char op;
+            int row, column;
+
+            if(ss >> op >> row >> column){
+
+            // Processing command
+                if(op == 'R' || op == 'r') {
+                    board.revealCell(row, column);
+                }
+                else if(op == 'F' || op =='f') {
+                    Cell &cell = board.at(row, column);
+                    cell.toggleFlag();
+                }
+                else {
+                    std::cout << "Invalid argument. " << std::endl;
+                }
+            }
+            
+        };
+        // End of the game
+        board.isGameOver();
     }
     catch (const std::invalid_argument) {
         std::cerr << "Invalid argument. " << std::endl;

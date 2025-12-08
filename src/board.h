@@ -20,7 +20,7 @@ class Board{
         int m_columns; // j
         double m_mineDensity;
         int m_totalArea;
-        int m_difficulty;
+        Difficulty m_difficulty;
         int m_numMines;
         bool m_gameOver;
         int m_mineCount;
@@ -40,10 +40,13 @@ class Board{
         
     public:
         // Constructor
-        Board(int rows, int columns, int mines, int difficulty);
+        Board(int rows, int columns, int difficulty);
         
         // Initializer
         void initialize();
+
+        // Getters
+        Cell& at(int row, int column);
                 
         // Endgame actions
         bool checkWinCondition();

@@ -9,10 +9,10 @@ Board::Board(int rows, int columns, int difficulty)
     :   m_rows(rows),
         m_columns(columns),
         m_totalArea(rows * columns),
-        m_difficulty(static_cast<Difficulty> difficulty),
+        m_difficulty(static_cast<Difficulty> (difficulty)),
         // Calculate mine density based on difficulty
         m_mineDensity(getDensityFactor(m_difficulty)),
-        m_numMines(static_cast<int>(std::ceil(m_totalArea * density))),
+        m_numMines(static_cast<int>(std::ceil(m_totalArea * m_mineDensity))),
         m_gameOver(false),
         m_mineCount(0),
         m_cellsRevealedCount(0),
@@ -23,31 +23,40 @@ Board::Board(int rows, int columns, int difficulty)
         m_possibilitiesColumns(0, columns-1)
 {
     initialize();
-};
+}
+
+Cell& Board::at(int row, int column){
+    Cell &cell = board.at(row).at(column);
+    return cell;
+}
 
 int Board::getDensityFactor(Difficulty difficulty){
     int m_density;
     switch (difficulty){
         case Difficulty::EASY:{
             m_density = MULTI_FACTOR_EASY;
-            return;
+            return m_density;
         }
         case Difficulty::MEDIUM: {
             m_density = MULTI_FACTOR_MEDIUM;
-            return;
+            return m_density;
         }
         case Difficulty::HARD: {
             m_density = MULTI_FACTOR_HARD;
-            return;
+            return m_density;
         }
         case Difficulty::OVERKILL: {
             m_density = MULTI_FACTOR_OVERKILL;
-            return;
+            return m_density;
         }
         case Difficulty::IMPOSSIBLE: {
             m_density = MULTI_FACTOR_IMPOSSIBLE;
-            return;
+            return m_density;
         }
+        default:
+            m_density = 0.10;
+            return m_density; // default is easy, compiler was arguing that
+
     };
 }
 
@@ -89,7 +98,14 @@ void Board::calculateAdjacentMines(){
     }   
 }
 // checks win condition, if true, ask to play more
-void Board::endGame();
+void Board::endGame(){
+    if(m_numMines == 0) {
+        std::cout << "Congratulations! You Won in " << TRIES << " tries!";
+    }
+    else{
+        std::cout << "You lost. Number of tries (" << TRIES << ") ";
+    }
+}
 
 void Board::initialize() { placeMines(); }
 bool Board::checkWinCondition() {
