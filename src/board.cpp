@@ -24,10 +24,17 @@ Board::Board(int rows, int columns, int difficulty)
 {
     // resize array for rows and columns
     board.resize(m_rows);
+    displayBoard.resize(m_rows);
     for(int i = 0; i < m_columns; ++i) {
         board.at(i).resize(m_columns);
+        displayBoard.at(i).resize(m_columns);
+        
+        for(int j = 0; j < m_columns; ++j){
+            displayBoard.at(i).at(j) = '#';
+        }
     }
-    
+
+
     initialize();
 }
 
@@ -113,7 +120,10 @@ void Board::endGame(){
     }
 }
 
-void Board::initialize() { placeMines(); }
+void Board::initialize() { 
+    placeMines(); 
+    calculateAdjacentMines();
+}
 bool Board::checkWinCondition() {
     if (m_numMines == 0){
         m_gameOver = true;
