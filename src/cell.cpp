@@ -13,24 +13,6 @@ void Cell::reset(){
     m_adjacentMines = 0;
 }    
 
-
-void Cell::reveal() {
-    if (!m_isRevealed && !m_isFlagged){
-        m_isRevealed = true;
-        return;
-    }
-}
-
-
-void Cell::toggleFlag(){
-    if (!m_isFlagged){
-        m_isFlagged = true;
-        return;
-    }
-    m_isFlagged = false;
-}
-
-
 // getters
 // const ensure that the method will not change the status of the cell
 bool Cell::getIsMine() const { return m_isMine; }
@@ -43,6 +25,20 @@ void Cell::setMine(){
     if(!m_isMine) { m_isMine = true; }
 }
 
+void Cell::toggleReveal() {
+    if (!m_isRevealed && !m_isFlagged){
+        m_isRevealed = true;
+        return;
+    }
+}
+
+void Cell::toggleFlag(){
+    if (!m_isFlagged){
+        m_isFlagged = true;
+        return;
+    }
+    m_isFlagged = false;
+}
 int Cell::setAdjacentMines(int mineCount) {
     m_adjacentMines = mineCount;
     return m_adjacentMines;

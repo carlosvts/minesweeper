@@ -6,6 +6,7 @@
 #include <random>
 
 #include "cell.h"
+#include "constants.h"
 
 class Board{
     private:
@@ -17,10 +18,13 @@ class Board{
 
         int m_rows; // i
         int m_columns; // j
-        int m_numMines;
+        double m_mineDensity;
+        int m_totalArea;
         int m_difficulty;
+        int m_numMines;
         bool m_gameOver;
         int m_mineCount;
+        int m_cellsRevealedCount;
 
         // Mersene Twister
         std::mt19937 m_mtGenerator;
@@ -31,6 +35,8 @@ class Board{
         void placeMines();
         void calculateAdjacentMines();
         void endGame();
+        // static ensures
+        static int getDensityFactor(Difficulty difficulty);
         
     public:
         // Constructor
@@ -46,7 +52,6 @@ class Board{
         // Setters
         // const ensure that we will "read-only" board
         void printBoard();
-        void revealCell(int row, int column) const;
+        void revealCell(int row, int column);
 };
-
 #endif

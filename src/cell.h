@@ -13,11 +13,7 @@ class Cell{
     
     public:
     // Constructor
-    Cell();
-
-    void reveal();
-    void toggleFlag();
-
+    
     // getters
     // const ensure that the method will not change the status of the cell
     bool getIsMine() const;
@@ -26,6 +22,9 @@ class Cell{
     int getAdjacentMines() const;
     
     // setters
+    Cell();
+    void toggleReveal(); // turn revealed on/off
+    void toggleFlag(); // turns flag on/off
     void setMine();
     int setAdjacentMines(int mineCount);
 };
