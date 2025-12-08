@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 #include "board.h"
 
 Board::Board(int rows, int columns, int mines, int difficulty)
@@ -42,7 +44,7 @@ void Board::calculateAdjacentMines(){
                         int neighborMaxY = j + k;
                         // Checks if we didnt exceded the borders
                         if (neighborMaxX >= 0 && neighborMaxX <= m_rows - 1 && neighborMaxY >= 0 && neighborMaxY <= m_columns - 1){
-                            Cell &neighbor = board[neighborMaxX][neighborMaxY];
+                            const Cell &neighbor = board[neighborMaxX][neighborMaxY];
                             if (neighbor.getIsMine() == true){
                                 ++minesCount;
                             }
@@ -67,5 +69,48 @@ bool Board::checkWinCondition() {
 void Board::isGameOver() {
     if (checkWinCondition()) { endGame(); }
 }
-void Board::displayBord() const 
+void Board::printBoard() {
+    // Filling the displayBoard
+    for (int i = 0; i < m_rows; ++i){
+        
+        for(int j = 0; j < m_columns; ++j){
+            const Cell &cell = board[i][j];
+            // Checks if has bomb
+            /*
+            # -> nothing (not revealed)
+            'F' -> Flagged
+            * -> mine
+            
+            */
+           int adjacentMines = cell.getAdjacentMines();
+           if(cell.getIsFlagged()) { displayBoard.at(i).at(j) = 'F';}
+           else if(!cell.getIsRevealed()) { displayBoard.at(i).at(j) = '#';}
+           else if(cell.getIsMine()) { displayBoard.at(i).at(j) = '*';}
+           else if(adjacentMines == 0) { displayBoard.at(i).at(j) = ' ';}
+           // converts the number of mines
+           else {
+                displayBoard.at(i).at(j) = static_cast<char>('0' + adjacentMines); // needs to use 0 so if adjacentMines = 1
+            }                                                                      // it will be 48 (value of x) + 1
+        }
+    }
+
+    // Writing the display 
+    std::cout << "\n   "; 
+    
+    // columns on displayBoard
+    for (int j = 0; j < m_columns; ++j){
+        std::cout << " " << j << " ";       
+    }                                       
+    std::cout << "\n";
+
+    // rows on displayBoard
+    for (int i = 0; i < m_rows; ++i){
+        std::cout << i << "|"; 
+        
+        for (int j = 0; j < m_columns; ++j) {
+            std::cout << " " << displayBoard.at(i).at(j) << " "; 
+        }
+        std::cout << "\n"; 
+    }
+}
 void Board::revealCell(int row, int column) const

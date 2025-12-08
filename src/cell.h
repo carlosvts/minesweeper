@@ -23,6 +23,7 @@ class Cell{
     bool getIsMine() const;
     bool getIsRevealed() const;
     bool getIsFlagged() const;
+    int getAdjacentMines() const;
     
     // setters
     void setMine();

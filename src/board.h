@@ -2,12 +2,16 @@
 #define BOARD_H
 
 #include <vector>
+#include <string>
 #include <random>
 
 #include "cell.h"
 
 class Board{
     private:
+        // display board
+        std::vector<std::vector<char>> displayBoard;
+
         // the de facto board
         std::vector<std::vector<Cell>> board;
 
@@ -41,7 +45,7 @@ class Board{
         
         // Setters
         // const ensure that we will "read-only" board
-        void displayBord() const;
+        void printBoard();
         void revealCell(int row, int column) const;
 };
 

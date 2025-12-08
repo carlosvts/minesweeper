@@ -36,6 +36,7 @@ void Cell::toggleFlag(){
 bool Cell::getIsMine() const { return m_isMine; }
 bool Cell::getIsRevealed() const { return m_isRevealed; }
 bool Cell::getIsFlagged() const { return m_isFlagged; }
+int Cell::getAdjacentMines() const { return m_adjacentMines; }
 
 // setters
 void Cell::setMine(){
