@@ -3,6 +3,7 @@
 
 // Constructor
 Cell::Cell(){
+    reset();
 }
 
 void Cell::reset(){
