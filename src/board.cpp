@@ -22,6 +22,12 @@ Board::Board(int rows, int columns, int difficulty)
         m_possibilitiesRows(0, rows-1),
         m_possibilitiesColumns(0, columns-1)
 {
+    // resize array for rows and columns
+    board.resize(m_rows);
+    for(int i = 0; i < m_columns; ++i) {
+        board.at(i).resize(m_columns);
+    }
+    
     initialize();
 }
 

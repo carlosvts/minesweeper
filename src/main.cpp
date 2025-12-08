@@ -7,6 +7,7 @@
 #include "board.h"
 #include "cell.h"
 
+int TRIES{}; // number of tries the user have
 //    [0]      [1]  [2]  [3]
 // minesweeper row col difficulty
 // argc = 4 
@@ -18,16 +19,15 @@ int main(int argc, char* argv[]){
     int row {};
     int col {};
     int difficulty {};
-    int tries{}; // number of tries the user have
 
     try{
     // gets user input
-        int gameRow = std::stoi(argv[1]);
-        int gameCol = std::stoi(argv[2]);
-        int difficulty = std::stoi(argv[3]);
+        row = std::stoi(argv[1]);
+        col = std::stoi(argv[2]);
+        difficulty = std::stoi(argv[3]);
         
         // Game logic
-        Board board(gameRow, gameCol, difficulty);
+        Board board(row, col, difficulty);
         board.initialize();
         while(board.checkWinCondition()){
             std::cout << "How to play: \n";
@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
             std::cout << "Your input: ";
             std::string input{};
             std::getline(std::cin >> std::ws, input);
-            ++tries;
+            ++TRIES;
             
             // using string stream to parse the input
             // deals automatically white trailing and inside whitespaces
