@@ -18,9 +18,9 @@ class Board{
 
         int m_rows; // i
         int m_columns; // j
+        Difficulty m_difficulty;
         double m_mineDensity;
         int m_totalArea;
-        Difficulty m_difficulty;
         int m_numMines;
         bool m_gameOver;
         int m_mineCount;
@@ -36,7 +36,7 @@ class Board{
         void calculateAdjacentMines();
         void endGame();
         // static ensures
-        static int getDensityFactor(Difficulty difficulty);
+        static double getDensityFactor(Difficulty difficulty);
         
     public:
         // Constructor
@@ -47,6 +47,7 @@ class Board{
 
         // Getters
         Cell& at(int row, int column);
+        bool getGameOver() const { return m_gameOver; };
                 
         // Endgame actions
         bool checkWinCondition();

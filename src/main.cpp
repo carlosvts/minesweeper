@@ -29,7 +29,9 @@ int main(int argc, char* argv[]){
         // Game logic
         Board board(row, col, difficulty);
         board.initialize();
-        while(board.checkWinCondition()){
+        while(!board.getGameOver()){
+
+            if(board.checkWinCondition()) { break; }
             std::cout << "How to play: \n";
             std::cout << "Reveal a line: r i j || i for row, j for column\n";
             std::cout << "Flag/Deflag a line: f i j || i for row, j for column\n";

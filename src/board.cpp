@@ -25,7 +25,7 @@ Board::Board(int rows, int columns, int difficulty)
     // resize array for rows and columns
     board.resize(m_rows);
     displayBoard.resize(m_rows);
-    for(int i = 0; i < m_columns; ++i) {
+    for(int i = 0; i < m_rows; ++i) {
         board.at(i).resize(m_columns);
         displayBoard.at(i).resize(m_columns);
         
@@ -43,8 +43,8 @@ Cell& Board::at(int row, int column){
     return cell;
 }
 
-int Board::getDensityFactor(Difficulty difficulty){
-    int m_density;
+double Board::getDensityFactor(Difficulty difficulty){
+    double m_density;
     switch (difficulty){
         case Difficulty::EASY:{
             m_density = MULTI_FACTOR_EASY;
@@ -74,12 +74,14 @@ int Board::getDensityFactor(Difficulty difficulty){
 }
 
 void Board::placeMines() {
-    while (m_mineCount <= m_numMines){
-        Cell &cell = board[m_possibilitiesRows(m_mtGenerator)][m_possibilitiesColumns(m_mtGenerator)];
+    while (m_mineCount < m_numMines){
+        Cell &cell = board.at(m_possibilitiesRows(m_mtGenerator)).at(m_possibilitiesColumns(m_mtGenerator));
         if(cell.getIsMine() == false){
             cell.setMine();
             ++m_mineCount;
-        }        
+        }
+        std::cout << "[DEBUG]NumMines \n" << m_numMines;
+        std::cout << "MineCount " << m_mineCount;        
     }
 }
 
@@ -150,12 +152,14 @@ void Board::printBoard() {
            int adjacentMines = cell.getAdjacentMines();
            if(cell.getIsFlagged()) { displayBoard.at(i).at(j) = 'F';}
            else if(!cell.getIsRevealed()) { displayBoard.at(i).at(j) = '#';}
-           else if(cell.getIsMine()) { displayBoard.at(i).at(j) = '*';}
-           else if(adjacentMines == 0) { displayBoard.at(i).at(j) = ' ';}
-           // converts the number of mines
            else {
-                displayBoard.at(i).at(j) = static_cast<char>('0' + adjacentMines); // needs to use 0 so if adjacentMines = 1
-            }                                                                      // it will be 48 (value of x) + 1
+                if(cell.getIsMine()) { displayBoard.at(i).at(j) = '*';}
+                else if(adjacentMines == 0) { displayBoard.at(i).at(j) = ' ';}
+               // converts the number of mines
+                else {
+                    displayBoard.at(i).at(j) = static_cast<char>('0' + adjacentMines); // needs to use 0 so if adjacentMines = 1
+                }                                                                      // it will be 48 (value of x) + 1
+           }
         }
     }
 
@@ -200,10 +204,12 @@ void Board::revealCell(int row, int column) {
                 // testing limits (boundaries)
                 int neighborMaxRow = i + row;
                 int neighborMaxCol = j + column;
-
+                if (neighborMaxRow >= 0 && neighborMaxRow < m_rows && 
+                    neighborMaxCol >= 0 && neighborMaxCol < m_columns) 
+                {
                 // the "sweep" effect
-                revealCell(neighborMaxRow, neighborMaxCol); // we will check boundaries on the topmost if
-                
+                    revealCell(neighborMaxRow, neighborMaxCol); // we will check boundaries on the topmost if
+                } 
             }
         }
     }
