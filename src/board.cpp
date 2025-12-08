@@ -17,10 +17,10 @@ Board::Board(int rows, int columns, int difficulty)
         m_mineCount(0),
         m_cellsRevealedCount(0),
 
-    // Generates a Mersenne Twister (mt) randomizer
-    m_mtGenerator(std::random_device{}()),
-    m_possibilitiesRows(0, rows-1),
-    m_possibilitiesColumns(0, columns-1)
+        // Generates a Mersenne Twister (mt) randomizer
+        m_mtGenerator(std::random_device{}()),
+        m_possibilitiesRows(0, rows-1),
+        m_possibilitiesColumns(0, columns-1)
 {
     initialize();
 };
