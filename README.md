@@ -20,8 +20,8 @@ The goal was to create a robust game loop, win/loss conditions, OOP, and C++ ski
 
 | Command | Sintax | Action |
 | :--- | :--- | :--- |
-| **Revelar** | `r i j` | Opens the cell at the line `i`, column `j`. If it is a bomb, game over |
-| **Bandeira** | `f i j` | Adds or remove a flag at line  `i`, column `j` . |
+| **Reveal** | `r i j` | Opens the cell at the line `i`, column `j`. If it is a bomb, game over |
+| **Flag** | `f i j` | Adds or remove a flag at line  `i`, column `j` . |
 
 ##  Installation & Setup
 ###  Prerequisites
