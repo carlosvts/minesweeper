@@ -4,7 +4,7 @@
 ![SFML](https://img.shields.io/badge/SFML-8CC445?style=for-the-badge&logo=sfml&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
-A fully interactive recreation of the classic Minesweeper game in CLI, built using C++ and SFML.
+A fully interactive recreation of the classic Minesweeper game in CLI, built using C++.
 
 ## About the Project
 
